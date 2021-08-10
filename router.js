@@ -1,19 +1,12 @@
 import Router from 'express';
-import Contact from './Contact.js'
+import ContactController from "./ContactController.js";
 
 const router = new Router();
 
-router.post('/contacts', async function (req, res) {
-	try {
-		const {name, position, photo} = req.body;
-		const contact = await Contact.create({name, position, photo});
-	  res.json(contact);
-	} catch (e) {
-		res.status(500).json(e.message);
-}});
-router.get('/contacts');
-router.get('/contacts/:id');
-router.put('/contacts');
-router.delete('/contacts:id');
+router.post('/contacts', ContactController.create);
+router.get('/contacts', ContactController.getAll);
+router.get('/contacts/:id', ContactController.getOne);
+router.put('/contacts', ContactController.update);
+router.delete('/contacts/:id', ContactController.delete);
 
 export default router;
